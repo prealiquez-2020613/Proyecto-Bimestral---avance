@@ -53,3 +53,21 @@ export const updateCategoryValidation = [
     body('name', 'Name is required').notEmpty().isLength({max : 50}).custom(existCategory),
     validateErrorWithoutImg
 ];
+
+export const addProductValidator = [
+    body('name', 'Name cannot be empty').notEmpty(),
+    body('description', 'Description cannot be empty').notEmpty(),
+    body('price', 'Price cannot be empty').notEmpty(),
+    body('stock', 'Stock cannot be empty').notEmpty(),
+    body('category', 'Category cannot be empty').notEmpty(),
+    validateErrorWithoutImg
+];
+
+export const updateProductValidator = [
+    body('name', 'Name cannot be empty').optional().notEmpty(),
+    body('description', 'Description cannot be empty').optional().notEmpty(),
+    body('price', 'Price cannot be empty').optional().notEmpty(),
+    body('stock', 'Stock cannot be empty').optional().notEmpty(),
+    body('category', 'Category cannot be empty').optional().notEmpty(),
+    validateErrorWithoutImg
+];
