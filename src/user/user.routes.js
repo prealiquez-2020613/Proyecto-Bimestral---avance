@@ -13,6 +13,6 @@ api.delete('/deleteAccount', [validateJwt], [deleteAccountValidation], deleteAcc
 api.delete('/deleteUser/:userId', [validateJwt], [adminValidation], deleteUser);
 api.put('/updateUser', [validateJwt], [UpdateValidator], updateUser);
 api.put('/updateUserRole/:id', [validateJwt], [adminValidation], [updateRoleValidation], updateRole);
-api.put('/updatePasswordUser/:id', [validateJwt], [newPasswordValidation], updatePassword);
+api.put('/updatePasswordUser', [validateJwt], [newPasswordValidation], updatePassword);
 
 export default api;

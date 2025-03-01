@@ -107,7 +107,7 @@ export const updateRole = async (req, res) => {
 // UPDATE PASSWORD
 export const updatePassword = async(req, res)=>{
     try {
-        const {id} = req.params;
+        const id = req.user.uid;
         const {actualPassword, newPassword} = req.body;
 
         const user = await User.findById(id);
