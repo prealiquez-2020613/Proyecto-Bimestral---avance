@@ -21,7 +21,12 @@ const shoppingCartSchema = new Schema(
                     default: 1
                 }
             }
-        ]
+        ],
+        subtotalAmount: {
+            type: Number,
+            required: [true, 'Subtotal amount is required'],
+            min: [0, 'Subtotal amount cannot be negative']
+        }
     }
 );
 
