@@ -16,7 +16,7 @@ export const deleteAccount = async (req, res) => {
         
         if(user && await checkPassword(user.password, password)){
 
-            await User.findByIdAndDelete(userId);
+            await User.findByIdAndUpdate(userId, {userStatus : false}, {new : true});
             return res.send({ success: true, message: 'User deleted successfully' });
 
         };
@@ -40,7 +40,7 @@ export const deleteUser = async (req, res) => {
             return res.status(404).send({ success: false, message: 'User not found' });
         }
         
-        await User.findByIdAndDelete(userId);
+        await User.findByIdAndUpdate(userId, {userStatus : false}, {new : true});
         return res.send({ success: true, message: 'User deleted successfully' });
 
     } catch (error) {
