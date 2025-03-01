@@ -71,3 +71,9 @@ export const updateProductValidator = [
     body('category', 'Category cannot be empty').optional().notEmpty(),
     validateErrorWithoutImg
 ];
+
+export const addToCartValidator = [
+    body('productId', 'Product ID cannot be empty').notEmpty(),
+    body('quantity', 'Quantity cannot be empty').notEmpty().isLength({min : 1}),
+    validateErrorWithoutImg
+];
