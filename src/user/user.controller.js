@@ -58,8 +58,8 @@ export const updateUser = async(req, res) =>{
         const newdata = req.body;
         console.log(id);
 
-        if(newdata.password) return res.send({message : 'You cannot update the password here'});
-        if(newdata.role) return res.send({message : 'You cannot update the role here'});
+        if(newdata.password) return res.status(403).send({message : 'You cannot update the password here'});
+        if(newdata.role) return res.status(403).send({message : 'You cannot update the role here'});
 
         const data = await User.findByIdAndUpdate(id, newdata, {new : true});
 
