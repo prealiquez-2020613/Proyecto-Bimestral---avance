@@ -1,5 +1,5 @@
-import Product from "../models/product.js";
-import Category from "../models/category.js";
+import Product from "../products/product.model.js";
+import Category from "../category/category.model.js";
 
 //AGREGAR PRODUCTO
 export const addProduct = async (req, res) => {

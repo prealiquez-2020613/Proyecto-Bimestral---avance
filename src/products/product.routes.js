@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import {addProduct, getProducts, getProductById, updateProduct, deleteProduct, 
     getOutOfStockProducts, getBestSellingProducts, getProductsByCategory,
-    searchProductsByName} from '../products/product.model.js';
+    searchProductsByName} from '../products/product.controller.js';
 import { validateJwt, adminValidation } from '../../middlewares/validate.jwt.js';
 import {addProductValidator, updateProductValidator} from '../../helpers/validators.js';
 
@@ -15,7 +15,7 @@ api.put('/updateProduct/:id', [validateJwt], [adminValidation], [updateProductVa
 api.delete('/deleteProduct/:id', [validateJwt], [adminValidation], deleteProduct);
 api.get('/getOutOfStockProducts', [validateJwt], [adminValidation], getOutOfStockProducts);
 api.get('/getBestSellingProducts', [validateJwt], getBestSellingProducts);
-api.get('/getProductsByCategory', [validateJwt], getProductsByCategory);
-api.get('/searchProductsByName/:name', [validateJwt], searchProductsByName);
+api.get('/getProductsByCategory/:categoryId', [validateJwt], getProductsByCategory);
+api.get('/searchProductsByName', [validateJwt], searchProductsByName);
 
 export default api;
