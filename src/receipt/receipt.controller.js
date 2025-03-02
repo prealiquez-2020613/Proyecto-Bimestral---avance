@@ -64,7 +64,8 @@ export const getReceiptsByUser = async (req, res) => {
 // ACTUALIZAR ESTADO DE LA FACTURA
 export const updateReceiptStatus = async (req, res) => {
     try {
-        const receiptId = req.params;
+        const {receiptId} = req.body;
+        console.log(receiptId);
 
         const receipt = await Receipt.findById(receiptId);
         if (!receipt) {

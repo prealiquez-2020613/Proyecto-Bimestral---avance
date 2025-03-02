@@ -8,6 +8,6 @@ const api = Router();
 //Rutas privadas
 api.post('/generateReceipt', [validateJwt], [clientValidation], [generateReceiptValidator], generateReceipt);
 api.get('/getReceiptsByUser', [validateJwt], [clientValidation], getReceiptsByUser);
-api.put('/updateReceiptStatus/:id', [validateJwt], [adminValidation], updateReceiptStatus);
+api.put('/updateReceiptStatus', [validateJwt], [adminValidation], updateReceiptStatus);
 
 export default api;
