@@ -1,4 +1,5 @@
 import Category from '../category/category.model.js';
+import Product from '../products/product.model.js';
 
 //Agregar Categoria
 export const addCategory = async(req, res)=>{
@@ -58,15 +59,31 @@ export const deleteCategory = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deletedCategory = await Category.findByIdAndDelete(id);
-
-        if (!deletedCategory) {
+        const categoryToDelete = await Category.findById(id);
+        if (!categoryToDelete) {
             return res.status(404).send({ success: false, message: 'Category not found' });
         }
 
-        return res.send({ success: true, message: 'Category deleted successfully', category: deletedCategory });
+        if (categoryToDelete.name === process.env.CATEGORY_NAME) {
+            return res.status(403).send({ success: false, message: 'You cannot delete the Default category' });
+        }
+
+        const defaultCategory = await Category.findOne({ name: process.env.CATEGORY_NAME });
+        if (!defaultCategory) {
+            return res.status(500).send({ success: false, message: 'Default category not found. Cannot reassign products.' });
+        }
+
+        await Product.updateMany(
+            { category: id },
+            { category: defaultCategory._id }
+        );
+
+        await Category.findByIdAndDelete(id);
+
+        return res.send({ success: true, message: 'Category deleted successfully. Products reassigned to default category.' });
+
     } catch (error) {
         console.error(error);
-        return res.status(500).send({ success: false, message: 'General Error', error });
+        return res.status(500).send({ success: false, message: 'General error deleting category', error });
     }
 };
