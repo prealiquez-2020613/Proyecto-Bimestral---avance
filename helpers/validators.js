@@ -77,3 +77,8 @@ export const addToCartValidator = [
     body('quantity', 'Quantity cannot be empty').notEmpty().isLength({min : 1}),
     validateErrorWithoutImg
 ];
+
+export const generateReceiptValidator = [
+    body('nit', 'NIT cannot be empty').notEmpty(),
+    validateErrorWithoutImg
+];
