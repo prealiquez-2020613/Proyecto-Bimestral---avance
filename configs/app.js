@@ -10,6 +10,7 @@ import userRoutes from '../src/user/user.routes.js';
 import categoryRoutes from '../src/category/category.routes.js';
 import productRoutes from '../src/products/product.routes.js';
 import shoppingCartRoutes from '../src/shoppingCart/shoppingCart.routes.js';
+import ReceiptRoutes from '../src/receipt/receipt.routes.js';
 
 
 const configs = (app)=>{
@@ -27,6 +28,7 @@ const routes = (app)=>{
     app.use('/v1/category', categoryRoutes);
     app.use('/v1/product', productRoutes);
     app.use('/v1/shoppingCart', shoppingCartRoutes);
+    app.use('/v1/receipt', ReceiptRoutes);
 };
 
 
