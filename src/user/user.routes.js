@@ -9,8 +9,8 @@ const api = Router();
 //RUTAS PRIVADAS
 api.get('/gettAllUsers',[validateJwt], [adminValidation], getAll);
 api.get('/findUser/:id', [validateJwt], [adminValidation], get);
-api.delete('/deleteAccount', [validateJwt], [deleteAccountValidation], deleteAccount);
-api.delete('/deleteUser/:userId', [validateJwt], [adminValidation], deleteUser);
+api.put('/deleteAccount', [validateJwt], [deleteAccountValidation], deleteAccount);
+api.put('/deleteUser/:userId', [validateJwt], [adminValidation], deleteUser);
 api.put('/updateUser', [validateJwt], [UpdateValidator], updateUser);
 api.put('/updateUserRole/:id', [validateJwt], [adminValidation], [updateRoleValidation], updateRole);
 api.put('/updatePasswordUser', [validateJwt], [newPasswordValidation], updatePassword);
