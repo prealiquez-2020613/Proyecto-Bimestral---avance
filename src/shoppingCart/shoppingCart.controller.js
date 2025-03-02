@@ -51,7 +51,7 @@ export const addToCart = async (req, res) => {
 export const removeFromCart = async (req, res) => {
     try {
         const userId = req.user.uid;
-        const { productId } = req.body;
+        const { productId, quantity } = req.body;
 
         const cart = await ShoppingCart.findOne({ user: userId }).populate("items.product");
         if (!cart) return res.status(404).send({ success: false, message: "Cart not found" });
@@ -60,8 +60,23 @@ export const removeFromCart = async (req, res) => {
         if (itemIndex === -1) return res.status(404).send({ success: false, message: "Product not found in cart" });
 
         const item = cart.items[itemIndex];
-        cart.subtotalAmount -= item.product.price * item.quantity;
-        cart.items.splice(itemIndex, 1);
+        const productPrice = item.product.price;
+
+        if (quantity) {
+            if (quantity <= 0 || quantity > item.quantity) {
+                return res.status(400).send({ success: false, message: "Invalid quantity to remove" });
+            }
+
+            item.quantity -= quantity;
+            cart.subtotalAmount -= productPrice * quantity;
+
+            if (item.quantity === 0) {
+                cart.items.splice(itemIndex, 1);
+            }
+        } else {
+            cart.subtotalAmount -= productPrice * item.quantity;
+            cart.items.splice(itemIndex, 1);
+        }
 
         await cart.save();
         return res.send({ success: true, message: "Product removed from cart", cart });
