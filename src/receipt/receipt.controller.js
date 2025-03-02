@@ -19,7 +19,10 @@ export const generateReceipt = async (req, res) => {
             }
         }
 
+        const itemList = cart.items;
+
         for (const item of cart.items) {
+            item.product.soldUnits += (item.quantity * 1);
             item.product.stock -= item.quantity;
             await item.product.save();
         }
@@ -28,6 +31,7 @@ export const generateReceipt = async (req, res) => {
             user: userId,
             nit,
             shoppingCart: cart._id,
+            items : itemList,
             totalAmount: cart.subtotalAmount,
             receiptStatus: "PAID"
         });
