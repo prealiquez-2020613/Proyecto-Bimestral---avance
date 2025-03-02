@@ -64,22 +64,17 @@ export const getReceiptsByUser = async (req, res) => {
 // ACTUALIZAR ESTADO DE LA FACTURA
 export const updateReceiptStatus = async (req, res) => {
     try {
-        const { receiptId, status } = req.body;
-        const statusEnum = ['PAID', 'ANNULLED'];
-
-        if (!statusEnum.includes(status)) {
-            return res.status(400).send({ success: false, message: "Invalid status" });
-        }
+        const receiptId = req.params;
 
         const receipt = await Receipt.findById(receiptId);
         if (!receipt) {
             return res.status(404).send({ success: false, message: "Receipt not found" });
         }
 
-        receipt.receiptStatus = status;
+        receipt.receiptStatus = 'ANNULLED';
         await receipt.save();
 
-        return res.send({ success: true, message: "Receipt status updated successfully", receipt });
+        return res.send({ success: true, message: "Receipt status anulled successfully", receipt });
     } catch (error) {
         console.error(error);
         return res.status(500).send({ success: false, message: "General error updating receipt status", error });
