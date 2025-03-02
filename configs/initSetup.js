@@ -30,8 +30,7 @@ export const initializeDatabase = async () => {
 
         if (!defaultCategoryExists) {
             const defaultCategory = new Category({
-                name: process.env.CATEGORY_NAME,
-                description: process.env.CATEGORY_DESCRIPTION, 
+                name: process.env.CATEGORY_NAME
             }); 
 
             await defaultCategory.save();
