@@ -50,12 +50,12 @@ export const login = async(req, res)=>{
 
             let token = await generateJwt(loggedUser);
 
-            return res.send({succes : true, message : `Welcome, ${user.name}`, loggedUser, token});
+            return res.send({success : true, message : `Welcome, ${user.name}`, loggedUser, token});
         };
-        return res.status(404).send({succes : false, message : 'Wrong email ir password'});
+        return res.status(404).send({success : false, message : 'Wrong email or password'});
         
     } catch (error) {
         console.error(error);
-        return res.status(500).send({succes : false, message: 'General error with login function', error});
+        return res.status(500).send({success : false, message: 'General error with login function', error});
     }
 }

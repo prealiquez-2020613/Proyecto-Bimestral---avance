@@ -85,3 +85,20 @@ export const updateReceiptStatus = async (req, res) => {
         return res.status(500).send({ success: false, message: "General error updating receipt status", error });
     }
 };
+
+// BUSCAR FACTURAS POR USUARIO
+export const getReceiptsByUserById = async (req, res) => {
+    try {
+        const {userId} = req.params;
+        const receipts = await Receipt.find({ user: userId }).populate("shoppingCart");
+
+        if (!receipts.length) {
+            return res.status(404).send({ success: false, message: "No receipts found for this user" });
+        }
+
+        return res.send({ success: true, message: "Receipts retrieved successfully", receipts });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ success: false, message: "General error retrieving receipts", error });
+    }
+};
